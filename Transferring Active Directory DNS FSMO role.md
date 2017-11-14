@@ -224,6 +224,11 @@ remaining domain controller during the demotion process.)
 17. Check the *Synchronous* check box and uncheck the *Extended* check box. Click the *Run* button.
 18. Verify in the text field on the right that the modification has been successful
     (`Modified "CN=Infrastructure,DC=DomainDnsZones,DC=ad,DC=example,DC=com"`).
+    * If the modification fails with `SvcErr: DSID-03152BF7`, it must be performed on a different domain controller. Try
+      the domain controller holding the *Infrastructure Master* FSMO role for the afflicted domain, then all the others
+      in the domain in turn. Open the *Connection* menu and click *Disconnect*, then follow steps 2 through 5, typing in
+      the hostname of the domain controller you wish to contact. Finally, follow steps 10 through 18 again to reset the
+      FSMO owner.
 19. Double-click on the object in the tree strucutre once more. The attribute `fSMORoleOwner` should now have the new
     value (the object name of the NTDS settings of `OLDDC`).
 20. Attempt to demote `olddc.ad.example.com` again. It should now see itself as the FSMO role owner of that partition
